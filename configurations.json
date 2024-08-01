@@ -1,0 +1,10 @@
+{
+    "browser":{
+        "name": "chrome",
+        "timeout": 1000,
+        "resolution": {
+            "width": 1280,
+            "heigth": 720
+        }
+    }
+}
