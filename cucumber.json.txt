@@ -1,0 +1,8 @@
+{
+    "default":{
+        "format":[
+            "html:reports/cucumber-report.html",
+            "@cucumber/pretty-formatter"
+        ]
+    }
+}
