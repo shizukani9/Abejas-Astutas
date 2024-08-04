@@ -9,5 +9,5 @@ Before( { tags: "@ui" }, async function(){
 });
 
 After({ tags: "@ui" },async function(){
-    await DriverFactory.closeInstance();
+    await DriverFactory.closeDriver();
 });
