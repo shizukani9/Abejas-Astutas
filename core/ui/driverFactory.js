@@ -2,10 +2,12 @@ const { Builder, Browser, WebDriver } = require("selenium-webdriver");
 const configuration = require("../../configuration.json");
 const ChromeDriver = require("./chromedriver");
 const FirefoxDriver = require("./firefoxdriver");
+const RemoteChromeDriver = require("./remoteChrome");
 
 const browserStrategy ={
     chrome: ChromeDriver,
     firefox: FirefoxDriver,
+    remoteChrome: RemoteChromeDriver
 }
 
 module.exports = class DriverFactory{
@@ -19,15 +21,15 @@ module.exports = class DriverFactory{
                 DriverFactory.myDriver = await new browserStrategy[
                     configuration.browser.name.toLowerCase()
                 ](configuration);
-                if(configuration.browser.maxWindows){
+                /*if(configuration.browser.maxWindows){
                     console.log("Maximizing windows");
                     await DriverFactory.myDriver.manage().window().maximize();
-                }
+                }*/
                 if(configuration.browser.timeout){
-                    console.log("Setting timeout", configuration.browser.timeout);
+                    /*console.log("Setting timeout", configuration.browser.timeout);
                     await DriverFactory.myDriver
                     .manage()
-                    .timeouts( {implicit: configuration.browser.timeout} );
+                    .timeouts( {implicit: configuration.browser.timeout} );*/
                 }    
             }else{
                 console.log("Driver already exists");
@@ -61,5 +63,3 @@ module.exports = class DriverFactory{
     }
 
 }
-
-module.exports = DriverFactory;

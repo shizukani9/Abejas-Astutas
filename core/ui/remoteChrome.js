@@ -4,7 +4,7 @@ require("chromedriver");
 
 const chromeOptions = new Options();
 
-module.exports = class ChromeDriver {
+module.exports = class RemoteChromeDriver {
     constructor(configuration) {
             return (async () => {
                 console.log("Creating Driver with: ", configuration)
@@ -16,6 +16,7 @@ module.exports = class ChromeDriver {
                 /*.setChromeOptions(
                     chromeOptions.windowSize(configuration.browser.resolution)
                 )*/
+               .usingServer(URL)
                 .build();
             })();
         }

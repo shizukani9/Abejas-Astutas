@@ -1,9 +1,10 @@
 const { By } = require("selenium-webdriver");
 
 class LoginPage{
-    usernameInput = By.css('[data-test="username"]');
-    passwordInput = By.css('[data-test="password"]');
-    loginButton = By.css('[name="login-button"]');
+    usernameInput = By.css('form #credentials_username');
+    passwordInput = By.css('form #credentials_password');
+    nextButton = By.css('form .app_signin_action_button');
+    loginButton = By.css('form label ~ .app_signin_action_button');
 }
 
 module.exports = new LoginPage();

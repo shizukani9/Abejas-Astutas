@@ -1,15 +1,14 @@
-const { Builder, Browser } = require("selenium-webdriver");
+const { Builder, Browser, WebDriver } = require("selenium-webdriver");
+require("chromedriver");
 
 class ChromeSingleton{
     /** @type {WebDriver} */
     static chrome;
     
-    constructor(){}
-
     static async createInstance(){
         if(!this.chrome){
             this.chrome = await new Builder().forBrowser(Browser.CHROME).build();
-            console.log("Driver started", await this.chrome.Browser.getSession());
+            console.log("Driver started", await this.chrome.getSession());
         }else{
             console.log("Driver already exists");
         }
@@ -28,4 +27,4 @@ class ChromeSingleton{
     }
 }
 
-module.exports = ChromeSingleton;
+module.exports = ChromeSingleton
