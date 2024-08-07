@@ -1,7 +1,6 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 const DriverFactory = require("../../core/ui/driverFactory");
 const LoginPage = require("../../main/ui/login_page");
-const DashboardPage = require("../../main/ui/dashboard_page");
 let chai = require('chai');
 let expect = chai.expect;
 
