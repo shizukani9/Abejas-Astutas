@@ -1,5 +1,5 @@
 {
-    "browser":{
+    "browser": {
         "name": "chrome",
         "headless": false,
         "timeout": 30000,
@@ -8,5 +8,7 @@
             "width": 1280,
             "heigth": 720
         }
-    }
+    },
+    "introductionPage": "introduction",
+    "projectSettingsPage": "settings"
 }

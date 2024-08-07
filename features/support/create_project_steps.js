@@ -1,24 +1,25 @@
 const { Given, When, Then, AfterAll } = require('@cucumber/cucumber');
 const { By, until } = require('selenium-webdriver');
 const DriverFactory = require('../../core/ui/driverFactory');
+const env = require('../../environment.json');
 
 let driver;
 
 Given('que estoy en la página de introducción', async function () {
     driver = await new DriverFactory();
-    await driver.get('https://www.pivotaltracker.com/signin');
+    await driver.get(env.dev.urlUI + 'signin');
 
     const usernameInput = await driver.wait(until.elementLocated(By.css('form #credentials_username')), 30000);
-    await usernameInput.sendKeys('equipoaamodulo6@gmail.com');
+    await usernameInput.sendKeys(env.dev.user.username);
     const nextButton = await driver.wait(until.elementLocated(By.css('form .app_signin_action_button')), 30000);
     await nextButton.click();
 
     const passwordInput = await driver.wait(until.elementLocated(By.css('form #credentials_password')), 30000);
-    await passwordInput.sendKeys('AbejasAstutas5');
+    await passwordInput.sendKeys(env.dev.user.password);
     const loginButton = await driver.wait(until.elementLocated(By.css('form label ~ .app_signin_action_button')), 30000);
     await loginButton.click();
 
-    await driver.wait(until.urlIs('https://www.pivotaltracker.com/introduction'), 30000);
+    await driver.wait(until.urlIs(env.dev.urlUI + 'introduction'), 30000);
 });
 
 When('ingreso el nombre del proyecto como {string}', async function (projectName) {
@@ -38,7 +39,7 @@ When('hago clic en el botón "Crear proyecto"', async function () {
 });
 
 Then('debería ver la página de configuración del proyecto', async function () {
-    await driver.wait(until.urlContains('/projects'), 30000);
+    await driver.wait(until.urlContains('/projects/'), 30000);
 
     const moreButton = await driver.wait(until.elementLocated(By.css('a[data-aid="navTab-more"]')), 30000);
     await driver.executeScript("arguments[0].scrollIntoView(true);", moreButton);
@@ -48,6 +49,12 @@ Then('debería ver la página de configuración del proyecto', async function ()
 });
 
 Given('que estoy en la página de configuración del proyecto', async function () {
+    await driver.wait(until.urlContains('/projects/'), 30000);
+
+    const moreButton = await driver.wait(until.elementLocated(By.css('a[data-aid="navTab-more"]')), 30000);
+    await driver.executeScript("arguments[0].scrollIntoView(true);", moreButton);
+    await moreButton.click();
+
     await driver.wait(until.urlContains('/settings'), 30000);
 });
 
@@ -58,7 +65,6 @@ When('hago clic en la opción "Más"', async function () {
 });
 
 When('hago clic en "Eliminar Proyecto"', async function () {
-    // Intentar hacer clic directamente en el elemento, aunque no esté visible
     const deleteLink = await driver.wait(until.elementLocated(By.css('a#delete_link')), 30000);
     await driver.executeScript("arguments[0].click();", deleteLink);
 });
@@ -69,7 +75,7 @@ When('confirmo la eliminación', async function () {
 });
 
 Then('debería ser redirigido a la página de introducción', async function () {
-    await driver.wait(until.urlIs('https://www.pivotaltracker.com/introduction'), 30000);
+    await driver.wait(until.urlIs(env.dev.urlUI + 'introduction'), 30000);
 });
 
 Then('debería ver la opción para crear un nuevo proyecto', async function () {
