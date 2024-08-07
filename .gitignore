@@ -34,3 +34,6 @@ reports/
 
 # Jest
 jest-html-reporters-*.html
+
+# package-lock.json
+package-lock.json
