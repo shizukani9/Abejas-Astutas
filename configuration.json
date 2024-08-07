@@ -3,10 +3,10 @@
         "name": "chrome",
         "headless": false,
         "timeout": 30000,
-        "maxWindows": false,
+        "maxWindows": true,
         "resolution": {
-            "width": 1280,
-            "heigth": 720
+            "width": 1366,
+            "heigth": 768
         }
     }
 }
