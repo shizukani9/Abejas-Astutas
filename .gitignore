@@ -1,0 +1,39 @@
+# Node modules
+node_modules/
+
+# Logs
+*.log
+logs/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.temp
+
+# Environment variables
+.env
+
+# Coverage and reports
+coverage/
+reports/
+
+# Optional npm cache directory
+.npm/
+
+# Optional eslint cache
+.eslintcache
+
+# Jest
+jest-html-reporters-*.html
+
+# package-lock.json
+package-lock.json

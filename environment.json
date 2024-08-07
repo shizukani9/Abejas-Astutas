@@ -1,0 +1,9 @@
+{
+    "dev":{
+        "urlUI":"https://www.pivotaltracker.com/",
+        "user":{
+            "username": "estandard_user",
+            "password": "secret_sauce"
+        }
+    }
+}

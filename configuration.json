@@ -1,0 +1,12 @@
+{
+    "browser":{
+        "name": "chrome",
+        "headless": false,
+        "timeout": 30000,
+        "maxWindows": false,
+        "resolution": {
+            "width": 1280,
+            "heigth": 720
+        }
+    }
+}
