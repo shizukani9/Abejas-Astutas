@@ -1,8 +1,9 @@
-Feature: Crear un nuevo proyecto en Pivotal Tracker
+Feature: Create a new project in Pivotal Tracker
 
-@functional
-Scenario: El usuario crea un nuevo proyecto
-  Given el usuario ha iniciado sesión en Pivotal Tracker
-    When el usuario crea un nuevo proyecto llamado "Proyecto de Prueba"
-    Then el proyecto "Proyecto de Prueba" debería estar listado en los en el dashboard de proyectos
+@functional @create_project
+Scenario: The user creates a new project
+  Given The user has logged in to Pivotal Tracker
+    When The user creates a new project named:
+      | ProjectName | Test Project |
+    Then The new project should be listed on the project dashboard
     
