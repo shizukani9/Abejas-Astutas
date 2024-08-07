@@ -20,6 +20,6 @@ When('I try to login the application', async function(){
     await loginButton.click();
 });
 
-Then('I should see the Dashboard page', async function(){
-    expect(await DriverFactory.myDriver.getCurrentUrl()).to.equal('https://www.pivotaltracker.com/dashboard');
+Then('I should see the Introduction page', async function(){
+    expect(await DriverFactory.myDriver.getCurrentUrl()).to.equal('https://www.pivotaltracker.com/introduction');
 });

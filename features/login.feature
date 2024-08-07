@@ -8,4 +8,4 @@ Scenario: A user is able to login with his credentials
         | Username | <username> |
         | Password | <password> |
     When I try to login the application
-    Then I should see the Dashboard page
+    Then I should see the Introduction page
