@@ -11,9 +11,13 @@ Given('The user has logged in to Pivotal Tracker', async function () {
 });
 
 When('The user creates a new project named:', async function (dataTable) {
- 
+    const nameProjectInput = await DriverFactory.myDriver.findElement(CreateProjectPage.nameProjectInput);
+    const createProjectButton = await DriverFactory.myDriver.findElement(CreateProjectPage.createProjectButton);
+
+    await nameProjectInput.sendKeys(dataTable.rowsHash().nameProjectInput);
+    await createProjectButton.click();
 });
 
 Then('The new project should be listed on the project dashboard', async function () {
-  
+    expect(await DriverFactory.myDriver.getCurrentUrl()).to.equal('https://www.pivotaltracker.com/dashboard');
 });

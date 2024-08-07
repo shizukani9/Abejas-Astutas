@@ -6,8 +6,10 @@ let chai = require('chai');
 let expect = chai.expect;
 
 Given('I set the login credentials with:', async function(dataTable){
+    
     const usernameInput = await DriverFactory.myDriver.findElement(LoginPage.usernameInput);
     const nextButton = await DriverFactory.myDriver.findElement(LoginPage.nextButton);
+
     await usernameInput.sendKeys(dataTable.rowsHash().Username);
     await nextButton.click();
 
