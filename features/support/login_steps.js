@@ -12,6 +12,11 @@ Given('I set the login credentials with:', async function(dataTable){
 
     const passwordInput = await DriverFactory.myDriver.findElement(LoginPage.passwordInput);
     await passwordInput.sendKeys(dataTable.rowsHash().Password);
+
+    //cookies button
+    const cookiesButton = await DriverFactory.myDriver.findElement(LoginPage.cookiesButton); //comentar
+    await cookiesButton.click(); //comentar
+
 });
 
 When('I try to login the application', async function(){

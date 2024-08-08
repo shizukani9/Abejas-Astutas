@@ -9,6 +9,7 @@ Scenario: A user is able to login with his credentials
         | Password | QAAbejitas1234! |
     When I try to login the application
     Then I should see the Introduction page
+    #Then I logout from the application pivotal
 
 
 #| Username | <username> |
