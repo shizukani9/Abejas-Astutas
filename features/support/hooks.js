@@ -8,9 +8,8 @@ Before( { tags: "@ui" }, async function(){
     this.driver = await new DriverFactory();
     console.log("Starting Browser");
     await this.driver.get("https://www.pivotaltracker.com/signin?source=navbar");
-
 });
 
 After({ tags: "@ui" },async function(){
-    await DriverFactory.closeDriver();
+    //await DriverFactory.closeDriver();
 });

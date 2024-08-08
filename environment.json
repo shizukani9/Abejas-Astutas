@@ -4,6 +4,10 @@
         "user":{
             "username": "estandard_user",
             "password": "secret_sauce"
+        },
+        "userTati":{
+            "username": "mamanierika251@gmail.com",
+            "password": "QAAbejitas1234!"
         }
     }
 }

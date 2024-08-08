@@ -1,21 +1,33 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 const DriverFactory = require("../../core/ui/driverFactory");
 const LoginPage = require("../../main/ui/login_page");
+const env = require("../../environment.json");
 let chai = require('chai');
 let expect = chai.expect;
 
-Given('I set the login credentials with:', async function(dataTable){
+Given('I set the login credentials with:', async function(){
+    // Imprimir credenciales en la consola
+    console.log("Username:", env.dev.userTati.username);
+    console.log("Password:", env.dev.userTati.password);
+    
     const usernameInput = await DriverFactory.myDriver.findElement(LoginPage.usernameInput);
     const nextButton = await DriverFactory.myDriver.findElement(LoginPage.nextButton);
-    await usernameInput.sendKeys(dataTable.rowsHash().Username);
+    await usernameInput.sendKeys(env.dev.userTati.username);
     await nextButton.click();
 
     const passwordInput = await DriverFactory.myDriver.findElement(LoginPage.passwordInput);
-    await passwordInput.sendKeys(dataTable.rowsHash().Password);
+    await passwordInput.sendKeys(env.dev.userTati.password);
 
     //cookies button
-    const cookiesButton = await DriverFactory.myDriver.findElement(LoginPage.cookiesButton); //comentar
-    await cookiesButton.click(); //comentar
+    try {
+        const cookiesButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(LoginPage.cookiesButton),
+            10000 // Espera hasta 10 segundos
+        );
+        await cookiesButton.click();
+    } catch (error) {
+        console.log("No se encontró la ventana emergente de cookies o ya fue cerrada.");
+    }
 
 });
 

@@ -1,13 +1,9 @@
 @ui
-Feature: Create project in Pivotal Tracker
+Feature: Crear un nuevo proyecto en Pivotal Tracker
 
-    Scenarios related to create project
 @create
-Scenario: Create project
+Scenario: Crear un proyecto con nombre válido
     Given I am logged into Pivotal Tracker
-        | Username | mamanierika251@gmail.com |
-        | Password | QAAbejitas1234! |
     When I create a new project with the name
-        | NameFirstProject | Project test |
+        | NameFirstProject | ProjectTest |
     Then I should see the project dashboard with the title
-    #Then I logout from the application

@@ -5,12 +5,7 @@ Feature: Login related scenarios
 @wip
 Scenario: A user is able to login with his credentials
     Given I set the login credentials with:
-        | Username | mamanierika251@gmail.com |
-        | Password | QAAbejitas1234! |
+        #| Username | <username> | //estoy usando directamente de enviroment.json
+        #| Password | <password> |
     When I try to login the application
     Then I should see the Introduction page
-    #Then I logout from the application pivotal
-
-
-#| Username | <username> |
-#| Password | <password> |
