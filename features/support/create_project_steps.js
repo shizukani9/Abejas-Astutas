@@ -3,7 +3,7 @@ const DriverFactory = require("../../core/ui/driverFactory");
 const LoginPage = require("../../main/ui/login_page");
 let chai = require('chai');
 let expect = chai.expect;
-const IntroductionPage = requiere("../../main/ui/introduction_page");
+const IntroductionPage = require("../../main/ui/introduction_page");
 
 Given('I am logged into Pivotal Tracker', async function (dataTable) {
   const usernameInput = await DriverFactory.myDriver.findElement(LoginPage.usernameInput);
@@ -13,10 +13,7 @@ Given('I am logged into Pivotal Tracker', async function (dataTable) {
 
   const passwordInput = await DriverFactory.myDriver.findElement(LoginPage.passwordInput);
   await passwordInput.sendKeys(dataTable.rowsHash().Password);
-
-  //cookies button
-  const cookiesButton = await DriverFactory.myDriver.findElement(LoginPage.cookiesButton); //comentar
-  await cookiesButton.click(); //comentar
+  
 
   const loginButton = await DriverFactory.myDriver.findElement(LoginPage.nextButton);
   await loginButton.click();
@@ -27,7 +24,10 @@ When('I create a new project with the name', async function (dataTable) {
 
   const nameFirstProjectInput = await DriverFactory.myDriver.findElement(IntroductionPage.nameFirstProjectInput);
   const createProjectButton = await DriverFactory.myDriver.findElement(IntroductionPage.createProjectButton);
-
+  //cookies button
+  const cookiesButton = await DriverFactory.myDriver.findElement(LoginPage.cookiesButton); //comentar
+  await cookiesButton.click(); //comentar
+  
   await nameFirstProjectInput.sendKeys(dataTable.rowsHash().NameFirstProject);
   await createProjectButton.click();
   

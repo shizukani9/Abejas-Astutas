@@ -7,6 +7,6 @@ class LoginPage{
     loginButton = By.css('form label ~ .app_signin_action_button');
 
     //cookies button
-    cookiesButton = By.css('button.onetrust-close-btn-handler.ot-close-icon.banner-close-button'); //comentar
+    cookiesButton = By.id('onetrust-accept-btn-handler'); //comentar
 }
 module.exports = new LoginPage();
