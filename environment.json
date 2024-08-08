@@ -1,9 +1,21 @@
 {
-    "dev":{
-        "urlUI":"https://www.pivotaltracker.com/",
-        "user":{
-            "username": "estandard_user",
-            "password": "secret_sauce"
+    "browser": {
+        "name": "chrome",
+        "headless": false,
+        "timeout": 30000,
+        "maxWindows": false,
+        "resolution": {
+            "width": 1480,
+            "height": 870
         }
-    }
+    },
+    "dev": {
+        "urlUI": "https://www.pivotaltracker.com/",
+        "user": {
+            "username": "equipoaamodulo6@gmail.com",
+            "password": "AbejasAstutas5"
+        }
+    },
+    "introductionPage": "introduction",
+    "projectSettingsPage": "settings"
 }

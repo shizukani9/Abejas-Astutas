@@ -1,12 +1,14 @@
 {
-    "browser":{
+    "browser": {
         "name": "chrome",
         "headless": false,
         "timeout": 30000,
         "maxWindows": false,
         "resolution": {
-            "width": 1280,
-            "heigth": 720
+            "width": 1480,
+            "height": 870
         }
-    }
+    },
+    "introductionPage": "introduction",
+    "projectSettingsPage": "settings"
 }
