@@ -1,5 +1,6 @@
 const { Builder, Browser } = require("selenium-webdriver");
 const { Options } = require("selenium-webdriver/chrome");
+const configuration = require("../../configuration.json");
 require("chromedriver");
 
 const chromeOptions = new Options();
@@ -11,12 +12,9 @@ module.exports = class ChromeDriver {
                 /*if(configuration.browser.headless){
                     chromeOptions.addArguments("--headless");
                 }*/
-                return await new Builder()
-                .forBrowser(Browser.CHROME)
-                /*.setChromeOptions(
-                    chromeOptions.windowSize(configuration.browser.resolution)
-                )*/
-                .build();
+                let driver = await new Builder().forBrowser(Browser.CHROME).build();
+                //await driver.manage().window().setRect({ width: 1024, height: 1024 });
+                return driver
             })();
         }
 };
