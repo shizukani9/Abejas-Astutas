@@ -21,12 +21,11 @@ When('I create a new story in backlog panel with following information:', async 
     await storyTypeDropdown.click();
     const bugOptionDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.bugOptionDropdown));
     await bugOptionDropdown.click();
-    console.log(environment.prod.userMember01.name);
     await ownerPlusIcon.click();
     const ownerList = await DriverFactory.myDriver.wait(until.elementsLocated(StoryPanel.ownerSelect));
     for (let i = 0; i < ownerList.length; i++) {
         const element = ownerList.pop();
-        if (element.getText().toString() === environment.prod.userMember01.name)
+        if ((await element.getText()).toString() === environment.prod.userMember01.name)
             await element.click();
     
     }
