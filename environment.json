@@ -2,8 +2,8 @@
     "prod":{
         "urlUI":"https://www.pivotaltracker.com/",
         "userAdmin":{
-            "username": "equipoaamodulo6@gmail.com",
-            "password": "AbejasAstutas5"
+            "username": "",
+            "password": ""
         }
     }
 }

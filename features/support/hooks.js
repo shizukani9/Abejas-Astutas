@@ -49,7 +49,6 @@ After({ tags: "@deleteFirstProject" },async function(scenario){
         await DriverFactory.myDriver.get("https://www.pivotaltracker.com/projects/"+this.firstProjectId+"/settings");
         await DriverFactory.myDriver.sleep(10000);
         const deleteLink = await DriverFactory.myDriver.findElement(ProjectSettingsPage.deleteLink);
-        //await DriverFactory.myDriver.manage().window().scrollFromElement(deleteLink);
         await deleteLink.click();
         const deleteButton = await DriverFactory.myDriver.sen(ProjectSettingsPage.deleteButton);
         await deleteButton.click();
@@ -57,5 +56,5 @@ After({ tags: "@deleteFirstProject" },async function(scenario){
 });
 
 After({ tags: "@ui" },async function(){
-    //await DriverFactory.closeDriver();
+    await DriverFactory.closeDriver();
 });

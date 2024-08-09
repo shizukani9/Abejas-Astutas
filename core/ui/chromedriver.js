@@ -12,9 +12,12 @@ module.exports = class ChromeDriver {
                 /*if(configuration.browser.headless){
                     chromeOptions.addArguments("--headless");
                 }*/
-                let driver = await new Builder().forBrowser(Browser.CHROME).build();
-                //await driver.manage().window().setRect({ width: 1024, height: 1024 });
-                return driver
+                    return await new Builder()
+                    .forBrowser(Browser.CHROME)
+                    /*.setChromeOptions(
+                        chromeOptions.windowSize(configuration.browser.resolution)
+                    )*/
+                    .build();
             })();
         }
 };
