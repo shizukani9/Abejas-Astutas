@@ -17,7 +17,7 @@ Given('I am logged into Pivotal Tracker', async function () {
   const loginButton = await DriverFactory.myDriver.findElement(LoginPage.nextButton);
   await loginButton.click();
 
-  // Verifica que la URL actual sea la de la página de introducción
   const currentUrl = await DriverFactory.myDriver.getCurrentUrl();
   expect(currentUrl).to.equal('https://www.pivotaltracker.com/introduction');
+  
 });

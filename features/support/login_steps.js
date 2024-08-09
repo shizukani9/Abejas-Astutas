@@ -6,10 +6,7 @@ let chai = require('chai');
 let expect = chai.expect;
 
 Given('I set the login credentials with:', async function(){
-    // Imprimir credenciales en la consola
-    console.log("Username:", env.dev.userTati.username);
-    console.log("Password:", env.dev.userTati.password);
-    
+   
     const usernameInput = await DriverFactory.myDriver.findElement(LoginPage.usernameInput);
     const nextButton = await DriverFactory.myDriver.findElement(LoginPage.nextButton);
     await usernameInput.sendKeys(env.dev.userTati.username);
@@ -21,8 +18,8 @@ Given('I set the login credentials with:', async function(){
     //cookies button
     try {
         const cookiesButton = await DriverFactory.myDriver.wait(
-            until.elementLocated(LoginPage.cookiesButton),
-            10000 // Espera hasta 10 segundos
+            until.elementLocated(LoginPage.cookiesButton)
+            ,10000
         );
         await cookiesButton.click();
     } catch (error) {

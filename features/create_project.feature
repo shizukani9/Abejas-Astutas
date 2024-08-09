@@ -1,8 +1,8 @@
 @ui
-Feature: Crear un nuevo proyecto en Pivotal Tracker
+Feature: Create a new project in Pivotal Tracker
 
-@create
-Scenario: Crear un proyecto con nombre válido
+@createFirstProject
+Scenario: Create a project with valid name
     Given I am logged into Pivotal Tracker
     When I create a new project with the name
         | NameFirstProject | ProjectTest |

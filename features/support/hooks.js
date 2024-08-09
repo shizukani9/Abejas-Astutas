@@ -11,5 +11,5 @@ Before( { tags: "@ui" }, async function(){
 });
 
 After({ tags: "@ui" },async function(){
-    //await DriverFactory.closeDriver();
+    await DriverFactory.closeDriver();
 });
