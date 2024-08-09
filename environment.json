@@ -4,6 +4,11 @@
         "userAdmin":{
             "username": "",
             "password": ""
+        },
+        "userMember01":{
+            "name": "Modulo6 Equipo AA",
+            "username": "",
+            "password": ""
         }
     }
 }

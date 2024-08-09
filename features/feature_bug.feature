@@ -1,15 +1,27 @@
 @ui
-Feature: Bug
+Feature: Management of Story Type - Bug
     Scenarios related to login acceptance creteria
 
-@wip @login @createFirstProject @deleteFirstProject
+@createBugStory @login @createFirstProject @deleteFirstProject
 Scenario: A user can create a bug with the minimum requirements.
     When I create a new story in backlog panel with following information:
         | Title     | Test01  |
         | StoryType | Bug     |
-    Then I should see the story with name: "<RandomName>" in backlog panel
+    Then I should see the story with name: "Test01" in backlog panel
         And  I should see the story in backlog panel with following information:
-            | Title     | <RandomName>  |
+            | Title     | Test01  |
+            | StoryType | Bug     |
+
+@assignBugStory @login @createFirstProject @deleteFirstProject
+Scenario: A user can create a bug with the minimum requirements.
+    When I create a new story in backlog panel with following information:
+        | Title     | Test01        |
+        | StoryType | Bug           |
+        | Owners    | userMember01  |
+    Then I should see the story with name: "Test01" in backlog panel
+        And  I should see the story in backlog panel with following information:
+            | Title     | Test01        |
             | StoryType | Bug           |
+            | Owners    | userMember01  |
 
      
