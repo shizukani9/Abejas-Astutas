@@ -1,5 +1,6 @@
 const { Builder, Browser } = require("selenium-webdriver");
 const { Options } = require("selenium-webdriver/chrome");
+const configuration = require("../../configuration.json");
 require("chromedriver");
 
 const chromeOptions = new Options();
