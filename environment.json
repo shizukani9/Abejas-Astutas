@@ -2,12 +2,12 @@
     "prod":{
         "urlUI":"https://www.pivotaltracker.com/",
         "userAdmin":{
-            "username": "",
+            "username": "<email>",
             "password": ""
         },
         "userMember01":{
-            "name": "Modulo6 Equipo AA",
-            "username": "",
+            "name": "<check name value in user profile>",
+            "username": "<email>",
             "password": ""
         }
     }

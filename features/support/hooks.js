@@ -6,6 +6,7 @@ const RandomValues = require("../../features/support/random_values");
 const LoginPage = require("../../main/ui/login_page");
 const IntroductionPage = require("../../main/ui/introduction_page");
 const ProjectSettingsPage = require("../../main/ui/project_settings_page");
+const MembersTab = require("../../main/ui/members_tab");
 const { until, Key } = require("selenium-webdriver");
 var {setDefaultTimeout} = require('@cucumber/cucumber');
 
@@ -34,6 +35,7 @@ Before( { tags: "@login" }, async function(){
 });
 
 Before( { tags: "@createFirstProject" }, async function(){
+    console.log("Starting to create first project");
     try {
         const cookiesButton = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.cookiesButton));
         await cookiesButton.click();
@@ -49,11 +51,28 @@ Before( { tags: "@createFirstProject" }, async function(){
     this.firstProjectId = (await DriverFactory.myDriver.getCurrentUrl()).split('/').pop();
 });
 
+Before( { tags: "@addAMemberToProject" }, async function(){
+    console.log("Starting to add a member to project");
+    await DriverFactory.myDriver.get("https://www.pivotaltracker.com/projects/"+this.firstProjectId+"/memberships");
+    const invitePeopleButton = await DriverFactory.myDriver.wait(until.elementLocated(MembersTab.invitePeopleButton));
+    await invitePeopleButton.click();
+    const findEmailTextField = await DriverFactory.myDriver.wait(until.elementLocated(MembersTab.findEmailTextField));
+    await findEmailTextField.sendKeys(environment.prod.userMember01.username);
+    MembersTab.inviteMemberLabel.value = MembersTab.inviteMemberLabel.value.replace("{0}", environment.prod.userMember01.username);
+    const inviteMember = await DriverFactory.myDriver.wait(until.elementLocated(MembersTab.inviteMemberLabel));
+    await inviteMember.click();
+    const inviteButton = await DriverFactory.myDriver.wait(until.elementLocated(MembersTab.inviteButton));
+    await inviteButton.click();
+    await DriverFactory.myDriver.get("https://www.pivotaltracker.com/n/projects/"+this.firstProjectId+"");
+    await DriverFactory.myDriver.wait(until.urlContains(this.firstProjectId));
+});
+
 After({ tags: "@deleteFirstProject" },async function(scenario){
+    console.log("Starting to delete the first project");
     const tags = scenario.pickle.tags;
     if (!!tags.find(tag => { return tag.name === '@createFirstProject'})) {
         await DriverFactory.myDriver.get("https://www.pivotaltracker.com/projects/"+this.firstProjectId+"/settings");
-        const deleteLink = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.deleteLink), 30000);
+        const deleteLink = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.deleteLink), configuration.browser.timeout);
         deleteLink.sendKeys(Key.SHIFT);
         await DriverFactory.myDriver.wait(until.elementIsVisible(deleteLink), configuration.browser.timeout);
         await deleteLink.click();

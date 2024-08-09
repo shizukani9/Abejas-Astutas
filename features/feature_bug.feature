@@ -12,7 +12,7 @@ Scenario: A user can create a bug with the minimum requirements.
             | Title     | Test01  |
             | StoryType | Bug     |
 
-@assignBugStory @login @createFirstProject @deleteFirstProject
+@assignBugStory @login @createFirstProject @addAMemberToProject @deleteFirstProject
 Scenario: A user can create a bug with the minimum requirements.
     When I create a new story in backlog panel with following information:
         | Title     | Test01        |

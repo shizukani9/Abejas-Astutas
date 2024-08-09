@@ -26,9 +26,7 @@ When('I create a new story in backlog panel with following information:', async 
     const ownerList = await DriverFactory.myDriver.wait(until.elementsLocated(StoryPanel.ownerSelect));
     for (let i = 0; i < ownerList.length; i++) {
         const element = ownerList.pop();
-        console.log(element.getText().toString());
         if (element.getText().toString() === environment.prod.userMember01.name)
-            console.log(element.getText().toString());
             await element.click();
     
     }
