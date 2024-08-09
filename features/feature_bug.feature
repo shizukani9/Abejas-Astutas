@@ -6,7 +6,7 @@ Feature: Bug
 Scenario: A user can create a bug with the minimum requirements.
     When I create a new story in backlog panel with following information:
         | Title     | Test01  |
-        | StoryType | Bug           |
+        | StoryType | Bug     |
     Then I should see the story with name: "<RandomName>" in backlog panel
         And  I should see the story in backlog panel with following information:
             | Title     | <RandomName>  |
