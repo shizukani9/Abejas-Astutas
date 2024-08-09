@@ -37,7 +37,7 @@ Before( { tags: "@createFirstProject" }, async function(){
     this.firstProjectName = RandomValues.alphanumeric(6);
     await projectNameInput.sendKeys(this.firstProjectName);
     await createProjectButton.click();
-    await DriverFactory.myDriver.sleep(10000);
+    await DriverFactory.myDriver.sleep(5000);
     this.firstProjectId = (await DriverFactory.myDriver.getCurrentUrl()).split('/').pop();
     console.log(this.firstProjectId)
 
