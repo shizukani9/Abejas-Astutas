@@ -19,16 +19,20 @@ When('I create a new story in backlog panel with following information:', async 
     const ownerPlusIcon = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.ownerPlusIcon));
     await storyTitleTextField.sendKeys(dataTable.rowsHash().Title);
     await storyTypeDropdown.click();
-    const bugOptionDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.bugOptionDropdown));
-    await bugOptionDropdown.click();
-    await ownerPlusIcon.click();
-    const ownerList = await DriverFactory.myDriver.wait(until.elementsLocated(StoryPanel.ownerSelect));
-    for (let i = 0; i < ownerList.length; i++) {
-        const element = ownerList.pop();
-        if ((await element.getText()).toString() === environment.prod.userMember01.name)
-            await element.click();
-    
+    StoryPanel.storyOptionInDropdown.value = StoryPanel.storyOptionInDropdown.value.replace("{0}", dataTable.rowsHash().StoryType.toLowerCase())
+    console.log(StoryPanel.storyOptionInDropdown.value);
+    const optionSelectedInDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyOptionInDropdown));
+    await optionSelectedInDropdown.click();
+    if (dataTable.rowsHash().Owners !== undefined){
+        await ownerPlusIcon.click();
+        const ownerList = await DriverFactory.myDriver.wait(until.elementsLocated(StoryPanel.ownerSelect));
+        for (let i = 0; i < ownerList.length; i++) {
+            const element = ownerList.pop();
+            if ((await element.getText()).toString() === environment.prod.userMember01.name)
+                await element.click();
+        }
     }
+    
     const saveButton = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.saveButton));
     await saveButton.click();
     await DriverFactory.myDriver.wait(until.elementIsVisible(addStoryButton), configuration.browser.timeout);
@@ -48,10 +52,15 @@ Then('I should see the story in backlog panel with following information:', asyn
     await (storyItem).click();
 
     const storyTitleTextField = await DriverFactory.myDriver.findElement(StoryPanel.storyTitleTextField);
+    StoryPanel.storyTypeSelectedLabel.value = StoryPanel.storyTypeSelectedLabel.value.replace("{0}", dataTable.rowsHash().StoryType.toLowerCase())
+    console.log(StoryPanel.storyTypeSelectedLabel.value);
     const storyTypeSelected = await DriverFactory.myDriver.findElement(StoryPanel.storyTypeSelectedLabel);
-    const ownerNameSelected = await DriverFactory.myDriver.findElement(StoryPanel.ownerNameSelectedLabel);
+    let ownerNameSelected = undefined;
+    if (dataTable.rowsHash().Owners !== undefined)
+        ownerNameSelected = await DriverFactory.myDriver.findElement(StoryPanel.ownerNameSelectedLabel);
     
     expect((await storyTitleTextField.getText()).toString()).to.equal(dataTable.rowsHash().Title);
     expect((await storyTypeSelected.getText()).toString()).to.equal(dataTable.rowsHash().StoryType);
-    expect((await ownerNameSelected.getText()).toString()).to.equal(environment.prod.userMember01.name);
+    if (dataTable.rowsHash().Owners !== undefined)
+        expect((await ownerNameSelected.getText()).toString()).to.equal(environment.prod.userMember01.name);
 });
