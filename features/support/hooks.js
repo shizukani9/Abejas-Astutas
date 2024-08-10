@@ -27,6 +27,13 @@ Before( { tags: "@login" }, async function(){
     await usernameInput.sendKeys(environment.prod.userAdmin.username);
     await nextButton.click();
 
+    try {
+        const cookiesButton = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.cookiesButton));
+        await cookiesButton.click();
+    } catch (error) {
+        console.log("No se encontró la ventana emergente de cookies o ya fue cerrada."+error);
+    }
+
     const passwordInput = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.passwordInput));
     await passwordInput.sendKeys(environment.prod.userAdmin.password);
 
@@ -36,13 +43,7 @@ Before( { tags: "@login" }, async function(){
 
 Before( { tags: "@createFirstProject" }, async function(){
     console.log("Starting to create first project");
-    try {
-        const cookiesButton = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.cookiesButton));
-        await cookiesButton.click();
-    } catch (error) {
-        console.log("No se encontró la ventana emergente de cookies o ya fue cerrada."+error);
-    }
-    const projectNameInput = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.nameFirstProjectInput));
+        const projectNameInput = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.nameFirstProjectInput));
     const createProjectButton = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.createProjectButton));
     this.firstProjectName = RandomValues.alphanumeric(6);
     await projectNameInput.sendKeys(this.firstProjectName);

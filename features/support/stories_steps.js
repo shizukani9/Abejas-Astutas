@@ -20,7 +20,6 @@ When('I create a new story in backlog panel with following information:', async 
     await storyTitleTextField.sendKeys(dataTable.rowsHash().Title);
     await storyTypeDropdown.click();
     StoryPanel.storyOptionInDropdown.value = StoryPanel.storyOptionInDropdown.value.replace("{0}", dataTable.rowsHash().StoryType.toLowerCase())
-    console.log(StoryPanel.storyOptionInDropdown.value);
     const optionSelectedInDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyOptionInDropdown));
     await optionSelectedInDropdown.click();
     if (dataTable.rowsHash().Owners !== undefined){
@@ -53,7 +52,6 @@ Then('I should see the story in backlog panel with following information:', asyn
 
     const storyTitleTextField = await DriverFactory.myDriver.findElement(StoryPanel.storyTitleTextField);
     StoryPanel.storyTypeSelectedLabel.value = StoryPanel.storyTypeSelectedLabel.value.replace("{0}", dataTable.rowsHash().StoryType.toLowerCase())
-    console.log(StoryPanel.storyTypeSelectedLabel.value);
     const storyTypeSelected = await DriverFactory.myDriver.findElement(StoryPanel.storyTypeSelectedLabel);
     let ownerNameSelected = undefined;
     if (dataTable.rowsHash().Owners !== undefined)
