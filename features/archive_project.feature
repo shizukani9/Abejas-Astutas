@@ -1,8 +1,8 @@
 @ui
-Feature: Archivar un Proyecto
+Feature: Archive a project
 
-@archive @login @createFirstProject 
-Scenario: Archivar un proyecto existente
+@archive @login @createFirstProject @deleteArchiveProject
+Scenario: Archive an existing project 
     When I navigate to the project settings page
     Then I archive the project
     Then I should see the project archived confirmation message
