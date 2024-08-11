@@ -34,6 +34,15 @@ Before( { tags: "@login" }, async function(scenario){
         const passwordInput = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.passwordInput));
         await passwordInput.sendKeys(environment.prod.userAdmin.password);
 
+        if (!isCookieEnabled){
+            try {
+                const cookiesButton = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.cookiesButton));
+                    await cookiesButton.click();
+                    isCookieEnabled = true;
+                } catch (error) {
+                    console.log("No se encontró la ventana emergente de cookies o ya fue cerrada."+error);
+                }
+        }
         const loginButton = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.loginButton));
         await loginButton.click();
     }
@@ -42,15 +51,6 @@ Before( { tags: "@login" }, async function(scenario){
 
 Before( { tags: "@createFirstProject" }, async function(){
     console.log("Starting to create first project");
-    if (!isCookieEnabled){
-        try {
-            const cookiesButton = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.cookiesButton));
-                await cookiesButton.click();
-                isCookieEnabled = true;
-            } catch (error) {
-                console.log("No se encontró la ventana emergente de cookies o ya fue cerrada."+error);
-            }
-    }
     const projectNameInput = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.nameFirstProjectInput));
     const createProjectButton = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.createProjectButton));
     this.firstProjectName = RandomValues.alphanumeric(6);
