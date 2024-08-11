@@ -9,6 +9,8 @@ const ProjectSettingsPage = require("../../main/ui/project_settings_page");
 const MembersTab = require("../../main/ui/members_tab");
 const { until, Key } = require("selenium-webdriver");
 var {setDefaultTimeout} = require('@cucumber/cucumber');
+const StoryPanel = require("../../main/ui/story_panel");
+const StoriesTab = require("../../main/ui/stories_tab");
 
 setDefaultTimeout(60 * 1000);
 let loginHook = false;
@@ -91,6 +93,31 @@ After({ tags: "@deleteFirstProject" },async function(scenario){
         const deleteButton = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.deleteButton));
         await deleteButton.click();
     }
+});
+
+Before({ tags: "@createBugStory" }, async function(){
+    console.log("Starting to create a bug story");
+    if (!this.createBugStoryHook){
+        const addStoryButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.addStoryButton));
+        await DriverFactory.myDriver.wait(until.elementIsVisible(addStoryButton), configuration.browser.timeout);
+        await addStoryButton.click();
+        const storyTitleTextField = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyTitleTextField));
+        const storyTypeDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyTypeDropdown));
+        this.firstStoryBugName = RandomValues.alphanumeric(6);       
+        await storyTitleTextField.sendKeys(this.firstStoryBugName);
+        await storyTypeDropdown.click();
+        StoryPanel.locatorAux.value = StoryPanel.storyOptionInDropdown.value.replace("{0}", "bug");
+        const optionSelectedInDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.locatorAux));
+        await optionSelectedInDropdown.click();
+        const saveButton = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.saveButton));
+        await saveButton.click();
+        await DriverFactory.myDriver.wait(until.elementIsVisible(addStoryButton), configuration.browser.timeout);
+        let storyItem = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.previewStoryItemRow));
+        storyItem = await DriverFactory.myDriver.wait(until.elementTextContains(storyItem, this.firstStoryBugName));
+        await storyItem.click();
+        console.log("Bug story created successfully in backlog with title:", this.firstStoryBugName);
+    }
+    this.createBugStoryHook = true;
 });
 
 AfterAll({ tags: "@ui" },async function(){
