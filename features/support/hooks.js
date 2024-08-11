@@ -124,6 +124,32 @@ Before({ tags: "@createBugStory" }, async function(){
     this.createBugStoryHook = true;
 });
 
+Before({ tags: "@createFeatureStory" }, async function(){
+    console.log("Starting to create a feature story");
+    if (!this.createFeatureStoryHook){
+        //
+        const addStoryButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.addStoryButton));
+        await DriverFactory.myDriver.wait(until.elementIsVisible(addStoryButton), configuration.browser.timeout);
+        await addStoryButton.click();
+        const storyTitleTextField = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyTitleTextField));
+        const storyTypeDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyTypeDropdown));
+        this.firstStoryFeatureName = RandomValues.alphanumeric(6);       
+        await storyTitleTextField.sendKeys(this.firstStoryFeatureName);
+        await storyTypeDropdown.click();
+        StoryPanel.locatorAux.value = StoryPanel.storyOptionInDropdown.value.replace("{0}", "feature");
+        const optionSelectedInDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.locatorAux));
+        await optionSelectedInDropdown.click();
+        const saveButton = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.saveButton));
+        await saveButton.click();
+        await DriverFactory.myDriver.wait(until.elementIsVisible(addStoryButton), configuration.browser.timeout);
+        let storyItem = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.previewStoryItemRow));
+        storyItem = await DriverFactory.myDriver.wait(until.elementTextContains(storyItem, this.firstStoryFeatureName));
+        await storyItem.click();
+        console.log("Feature story created successfully in backlog with title:", this.firstStoryFeatureName);
+    }
+    this.createFeatureStoryHook = true;
+});
+
 AfterAll({ tags: "@ui" },async function(){
     await DriverFactory.closeDriver();
 });
