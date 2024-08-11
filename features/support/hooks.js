@@ -82,6 +82,60 @@ After({ tags: "@deleteFirstProject" },async function(scenario){
     }
 });
 
+After({ tags: "@deleteProjectForSettings" }, async function() {
+    console.log("Executing @deleteProjectForSettings hook...");
+    
+    if (await DriverFactory.myDriver.getWindowHandle()) {
+        await DriverFactory.myDriver.get("https://www.pivotaltracker.com/projects/" + this.firstProjectId + "/settings");
+
+        const deleteLink = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.deleteLink), configuration.browser.timeout);
+        deleteLink.sendKeys(Key.SHIFT);
+        await DriverFactory.myDriver.wait(until.elementIsVisible(deleteLink), configuration.browser.timeout);
+        await deleteLink.click();
+
+        const deleteButton = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.deleteButton), configuration.browser.timeout);
+        await deleteButton.click();
+
+        console.log("Project deleted for settings");
+    } else {
+        console.log("Window is not available. Skipping project deletion.");
+    }
+});
+
+After({ tags: "@signOut", order: 98 }, async function() {
+    console.log("Executing @signOut hook...");
+    try {
+        await DriverFactory.myDriver.get("https://www.pivotaltracker.com/profile");
+
+        const profileDropdownButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesTab.profileDropdownButton), 
+            configuration.browser.timeout
+        );
+
+        await DriverFactory.myDriver.wait(
+            until.elementIsEnabled(profileDropdownButton), 
+            configuration.browser.timeout
+        );
+
+        await profileDropdownButton.click();
+
+        const signOutButton = await DriverFactory.myDriver.wait(
+            until.elementLocated(StoriesTab.signOutButton), 
+            configuration.browser.timeout
+        );
+
+        await DriverFactory.myDriver.wait(
+            until.elementIsEnabled(signOutButton), 
+            configuration.browser.timeout
+        );
+
+        await signOutButton.click();
+        console.log("User successfully logged out.");
+    } catch (error) {
+        console.log("Error during sign out: ", error);
+    }
+});
+
 AfterAll({ tags: "@ui" },async function(){
-    await DriverFactory.closeDriver();
+    //await DriverFactory.closeDriver();
 });
