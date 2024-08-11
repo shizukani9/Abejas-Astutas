@@ -1,7 +1,7 @@
 @ui
 Feature: Archive a project
 
-@archiveProject @login @createFirstProject @deleteArchiveProject
+@archiveProject @login @createFirstProject @deleteFirstProject
 Scenario: Archive an existing project 
     When I navigate to the project settings page
     Then I archive the project

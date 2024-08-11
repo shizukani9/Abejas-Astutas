@@ -82,18 +82,6 @@ After({ tags: "@deleteFirstProject" },async function(scenario){
     }
 });
 
-After({ tags: "@deleteArchiveProject" }, async function() {
-    console.log("Deleting the archived project");
-    await DriverFactory.myDriver.get("https://www.pivotaltracker.com/projects/"+this.firstProjectId+"/settings");
-    const deleteLink = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.deleteLink));
-    deleteLink.sendKeys(Key.SHIFT);
-    await DriverFactory.myDriver.wait(until.elementIsVisible(deleteLink), configuration.browser.timeout);
-    await deleteLink.click();
-    const deleteButton = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.deleteButton));
-    await deleteButton.click();
-    console.log("Archived project deleted");
-});
-
 AfterAll({ tags: "@ui" },async function(){
     await DriverFactory.closeDriver();
 });
