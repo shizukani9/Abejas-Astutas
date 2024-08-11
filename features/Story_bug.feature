@@ -1,6 +1,5 @@
 @ui
 Feature: Management of Story Type - Bug
-    Scenarios related to management Story with Bug type
 
 @createBugStory @login @createFirstProject @deleteFirstProject
 Scenario: A user can create a bug with the minimum requirements.
