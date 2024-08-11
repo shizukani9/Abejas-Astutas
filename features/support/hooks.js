@@ -127,7 +127,6 @@ Before({ tags: "@createBugStory" }, async function(){
 Before({ tags: "@createFeatureStory" }, async function(){
     console.log("Starting to create a feature story");
     if (!this.createFeatureStoryHook){
-        //
         const addStoryButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.addStoryButton));
         await DriverFactory.myDriver.wait(until.elementIsVisible(addStoryButton), configuration.browser.timeout);
         await addStoryButton.click();
