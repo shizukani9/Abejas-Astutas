@@ -21,7 +21,7 @@ Given('que he creado un proyecto y estoy en la página de configuración del pro
     await driver.wait(until.urlContains(environment.introductionPage), 30000);
 
     // Crear un nuevo proyecto usando los métodos de IntroductionPage
-    await IntroductionPage.createNewProject(driver, 'Prueba');
+    await IntroductionPage.createNewProject(driver, 'Pruebita Es');
 
     // Navega a la configuración del proyecto
     await ProjectSettingsPage.navigateToProjectSettings(driver);
