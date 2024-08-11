@@ -34,6 +34,13 @@ module.exports = class DriverFactory{
         })();
     }
 
+    static async getDriverInstance(){
+        if (!DriverFactory.myDriver) {
+            DriverFactory.myDriver = await new DriverFactory();
+        }
+        return DriverFactory.myDriver;
+    }
+
     static async closeInstance(){
         console.log("Closing browser");
         await DriverFactory.myDriver.close();
