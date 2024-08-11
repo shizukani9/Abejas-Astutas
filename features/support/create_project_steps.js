@@ -8,7 +8,7 @@ const configuration = require("../../configuration.json");
 let chai = require('chai');
 let expect = chai.expect;
 
-Then('I create a new project with the random name', async function(){
+When('I create a new project with the random name', async function(){
     console.log("Starting to create first project");
         const projectNameInput = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.nameFirstProjectInput));
     const createProjectButton = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.createProjectButton));
@@ -26,7 +26,7 @@ Then('I should see the project created with the random name', async function(){
     expect(projectName).to.equal(this.firstProjectName);
 });
 
-Then('I create a new project with the static name', async function(dataTable){
+When('I create a new project with the static name', async function(dataTable){
     console.log("Starting to create first project");
         const projectNameInput = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.nameFirstProjectInput));
     const createProjectButton = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.createProjectButton));
