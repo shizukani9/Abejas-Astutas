@@ -1,5 +1,5 @@
 @ui 
-Feature: Eliminar una historia de usuario de tipo bug
+Feature: Delete a bug type user story
 
 @deleteBugStory @login @createFirstProject @deleteFirstProject
 Scenario: A user can create a bug with the minimum requirements.
