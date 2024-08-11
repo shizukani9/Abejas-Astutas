@@ -8,10 +8,6 @@ const configuration = require("../../configuration.json");
 let chai = require('chai');
 let expect = chai.expect;
 
-When('I navigate to the Introduction page', async function(){
-    expect(await DriverFactory.myDriver.getCurrentUrl()).to.equal('https://www.pivotaltracker.com/introduction');
-});
-
 Then('I create a new project with the random name', async function(){
     console.log("Starting to create first project");
         const projectNameInput = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.nameFirstProjectInput));
@@ -23,11 +19,11 @@ Then('I create a new project with the random name', async function(){
     this.firstProjectId = (await DriverFactory.myDriver.getCurrentUrl()).split('/').pop();
 });
 
-Then('I should see the stories tab project', async function(){
-    const logoImage = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.logoImage), configuration.browser.timeout);
-    await DriverFactory.myDriver.wait(until.elementIsVisible(logoImage), configuration.browser.timeout);
-    const isVisible = await logoImage.isDisplayed();
-    expect(isVisible).to.be.true;
+Then('I should see the project created with the random name', async function(){
+    console.log("Verifying the project with random name is created");
+    const projectNameLabel = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.projectNameLabel), configuration.browser.timeout);
+    const projectName = await projectNameLabel.getText();
+    expect(projectName).to.equal(this.firstProjectName);
 });
 
 Then('I create a new project with the static name', async function(dataTable){
@@ -38,4 +34,14 @@ Then('I create a new project with the static name', async function(dataTable){
     await createProjectButton.click();
     await DriverFactory.myDriver.wait(until.urlContains("projects"));
     this.firstProjectId = (await DriverFactory.myDriver.getCurrentUrl()).split('/').pop();
+});
+
+Then('I should see the project created with the static name', async function(dataTable){
+    console.log("Verifying the project with static name is created");
+    const projectNameExpected = dataTable.rowsHash().NameFirstProject;
+    const projectNameLabel = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.projectNameLabel), configuration.browser.timeout);
+    await DriverFactory.myDriver.wait(until.elementIsEnabled(projectNameLabel), configuration.browser.timeout);
+    await DriverFactory.myDriver.wait(until.elementIsVisible(projectNameLabel), configuration.browser.timeout);
+    const projectName = await projectNameLabel.getText();
+    expect(projectName).to.equal(projectNameExpected);
 });
