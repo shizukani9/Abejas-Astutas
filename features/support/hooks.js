@@ -81,10 +81,11 @@ Before( { tags: "@addAMemberToProject" }, async function(){
     this.addAMemberToProjectHook = true;
 });
 
-After({ tags: "@deleteFirstProject" },async function(scenario){
+After({ tags: "@deleteFirstProject" }, async function(scenario){
     console.log("Starting to delete the first project");
     const tags = scenario.pickle.tags;
-    if (!!tags.find(tag => { return tag.name === '@createFirstProject'})) {
+    
+    if (!!tags.find(tag => { return tag.name === '@createFirstProject'; }) || this.firstProjectId !== undefined) {
         await DriverFactory.myDriver.get("https://www.pivotaltracker.com/projects/"+this.firstProjectId+"/settings");
         const deleteLink = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.deleteLink), configuration.browser.timeout);
         deleteLink.sendKeys(Key.SHIFT);
@@ -92,6 +93,9 @@ After({ tags: "@deleteFirstProject" },async function(scenario){
         await deleteLink.click();
         const deleteButton = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.deleteButton));
         await deleteButton.click();
+        console.log("Project deleted");
+    } else {
+        console.log("No project to delete.");
     }
 });
 
