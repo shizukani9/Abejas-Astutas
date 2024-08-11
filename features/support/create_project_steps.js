@@ -4,6 +4,7 @@ const StoriesTab = require("../../main/ui/stories_tab");
 const IntroductionPage = require("../../main/ui/introduction_page");
 const RandomValues = require("../../features/support/random_values");
 const { until } = require("selenium-webdriver");
+const configuration = require("../../configuration.json");
 let chai = require('chai');
 let expect = chai.expect;
 
@@ -23,8 +24,8 @@ Then('I create a new project with the random name', async function(){
 });
 
 Then('I should see the stories tab project', async function(){
-    const logoImage = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.logoImage), 10000);
-    await DriverFactory.myDriver.wait(until.elementIsVisible(logoImage), 10000);
+    const logoImage = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.logoImage), configuration.browser.timeout);
+    await DriverFactory.myDriver.wait(until.elementIsVisible(logoImage), configuration.browser.timeout);
     const isVisible = await logoImage.isDisplayed();
     expect(isVisible).to.be.true;
 });
