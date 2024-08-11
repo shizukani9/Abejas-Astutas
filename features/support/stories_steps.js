@@ -19,8 +19,8 @@ When('I create a new story in backlog panel with following information:', async 
     const ownerPlusIcon = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.ownerPlusIcon));
     await storyTitleTextField.sendKeys(dataTable.rowsHash().Title);
     await storyTypeDropdown.click();
-    StoryPanel.storyOptionInDropdown.value = StoryPanel.storyOptionInDropdown.value.replace("{0}", dataTable.rowsHash().StoryType.toLowerCase())
-    const optionSelectedInDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyOptionInDropdown));
+    StoryPanel.locatorAux.value = StoryPanel.storyOptionInDropdown.value.replace("{0}", dataTable.rowsHash().StoryType.toLowerCase())
+    const optionSelectedInDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.locatorAux));
     await optionSelectedInDropdown.click();
     if (dataTable.rowsHash().Owners !== undefined){
         await ownerPlusIcon.click();
@@ -51,8 +51,8 @@ Then('I should see the story in backlog panel with following information:', asyn
     await (storyItem).click();
 
     const storyTitleTextField = await DriverFactory.myDriver.findElement(StoryPanel.storyTitleTextField);
-    StoryPanel.storyTypeSelectedLabel.value = StoryPanel.storyTypeSelectedLabel.value.replace("{0}", dataTable.rowsHash().StoryType.toLowerCase())
-    const storyTypeSelected = await DriverFactory.myDriver.findElement(StoryPanel.storyTypeSelectedLabel);
+    StoryPanel.locatorAux.value = StoryPanel.storyTypeSelectedLabel.value.replace("{0}", dataTable.rowsHash().StoryType.toLowerCase())
+    const storyTypeSelected = await DriverFactory.myDriver.findElement(StoryPanel.locatorAux);
     let ownerNameSelected = undefined;
     if (dataTable.rowsHash().Owners !== undefined)
         ownerNameSelected = await DriverFactory.myDriver.findElement(StoryPanel.ownerNameSelectedLabel);

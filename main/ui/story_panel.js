@@ -9,6 +9,8 @@ class StoryPanel{
     ownerPlusIcon = By.css('.backlog.current_backlog .add_owner.selected');
     ownerSelect = By.css('.lightbox.owner.add_owner .name');
     saveButton = By.css('.backlog.current_backlog .autosaves.button');
+    
+    locatorAux = By.css('');
 }
 
 module.exports = new StoryPanel();
