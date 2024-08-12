@@ -1,7 +1,7 @@
 @ui 
 Feature: Delete a feature type user story
 
-@deleteFeatureStory @login @createFirstProject @createFeatureStory @deleteFirstProject
-Scenario: A user can create a feature with the minimum requirements
+@US2-AC04_TC1 @login @createFirstProject @createFeatureStory @deleteFirstProject
+Scenario: Verify that the “Feature” type story is deleted
     When I delete the feature type story from the backlog
     Then I should see the backlog empty
