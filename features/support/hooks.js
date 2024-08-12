@@ -11,10 +11,14 @@ const { until, Key } = require("selenium-webdriver");
 var {setDefaultTimeout} = require('@cucumber/cucumber');
 const StoryPanel = require("../../main/ui/story_panel");
 const StoriesTab = require("../../main/ui/stories_tab");
+const CommonFlows = require("../../features/support/commonFlows");
 
 setDefaultTimeout(60 * 1000);
 let loginHook = false;
 let isCookieEnabled = false;
+let firstProjectId
+let firstProjectName
+let defaultProjectId
 
 BeforeAll( { tags: "@ui" }, async function(){
     console.log("Starting Framework");
@@ -25,106 +29,36 @@ BeforeAll( { tags: "@ui" }, async function(){
 });
 
 Before( { tags: "@login" }, async function(scenario){
-    console.log("Test scenario: " + scenario.pickle.name);
+    console.log("TEST SCENARIO: " + scenario.pickle.name.toLocaleUpperCase());
     if ((loginHook === undefined) || (loginHook === false)){
-        console.log("Hook: Starting Login");
-        const usernameInput = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.usernameInput));
-        const nextButton = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.nextButton));
-        await usernameInput.sendKeys(environment.prod.userAdmin.username);
-        await nextButton.click();
-
-        const passwordInput = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.passwordInput));
-        await passwordInput.sendKeys(environment.prod.userAdmin.password);
-
-        if (!isCookieEnabled){
-            try {
-                const cookiesButton = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.cookiesButton));
-                    await cookiesButton.click();
-                    isCookieEnabled = true;
-                } catch (error) {
-                    console.log("No se encontró la ventana emergente de cookies o ya fue cerrada."+error);
-                }
-        }
-        const loginButton = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.loginButton));
-        await loginButton.click();
+        loginHook = await CommonFlows.login(scenario, isCookieEnabled);
+        isCookieEnabled = true;
+        if (!configuration.browser.parallel) defaultProjectId = await CommonFlows.createDefaultProject();
     }
-    loginHook = true;
 });
 
 Before( { tags: "@createFirstProject" }, async function(){
-    console.log("Hook: Starting to create first project");
-    const projectNameInput = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.nameFirstProjectInput));
-    const createProjectButton = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.createProjectButton));
-    this.firstProjectName = RandomValues.randomNumerics(6);
-    await projectNameInput.sendKeys(this.firstProjectName);
-    await createProjectButton.click();
-    await DriverFactory.myDriver.wait(until.urlContains("projects"));
-    this.firstProjectId = (await DriverFactory.myDriver.getCurrentUrl()).split('/').pop();
+    this.firstProjectId = await CommonFlows.createFirstProject();
     this.createFirstProjectHook = true;
 });
 
 Before( { tags: "@addAMemberToProject" }, async function(){
-    console.log("Hook: Starting to add a member to project");
     if ((this.addAMemberToProjectHook === undefined) || (this.addAMemberToProjectHook === false)){
-        await DriverFactory.myDriver.get("https://www.pivotaltracker.com/projects/"+this.firstProjectId+"/memberships");
-        const invitePeopleButton = await DriverFactory.myDriver.wait(until.elementLocated(MembersTab.invitePeopleButton));
-        await invitePeopleButton.click();
-        const findEmailTextField = await DriverFactory.myDriver.wait(until.elementLocated(MembersTab.findEmailTextField));
-        await findEmailTextField.sendKeys(environment.prod.userMember01.username);
-        const inviteMember = await DriverFactory.myDriver.wait(until.elementLocated(MembersTab.inviteMemberLabel));
-        await inviteMember.click();
-        const inviteButton = await DriverFactory.myDriver.wait(until.elementLocated(MembersTab.inviteButton));
-        await inviteButton.click();
-        await DriverFactory.myDriver.get("https://www.pivotaltracker.com/n/projects/"+this.firstProjectId+"");
-        await DriverFactory.myDriver.wait(until.urlContains(this.firstProjectId));
+        this.addAMemberToProjectHook = await CommonFlows.addAMemberToProject();
     }
-    this.addAMemberToProjectHook = true;
 });
 
-After({ tags: "@deleteFirstProject" }, async function(scenario){
-    console.log("Hook: Starting to delete the first project");
-    const tags = scenario.pickle.tags;
-    
-    if (!!tags.find(tag => { return tag.name === '@createFirstProject'; }) || this.firstProjectId !== undefined) {
-        await DriverFactory.myDriver.get("https://www.pivotaltracker.com/projects/"+this.firstProjectId+"/settings");
-        const deleteLink = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.deleteLink), configuration.browser.timeout);
-        deleteLink.sendKeys(Key.SHIFT);
-        await DriverFactory.myDriver.wait(until.elementIsVisible(deleteLink), configuration.browser.timeout);
-        await deleteLink.click();
-        const deleteButton = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.deleteButton));
-        await deleteButton.click();
-        console.log("Project deleted");
-    } else {
-        console.log("No project to delete.");
-    }
+After({ tags: "@deleteFirstProject" }, async function(){
+    this.firstProjectId = await CommonFlows.deleteFirstProject(this.firstProjectId);
 });
 
 Before({ tags: "@createBugStory or @createFeatureStory" }, async function(scenario){
-    console.log("Hook: Starting to create a feature story");
     if (!this.createFeatureStoryHook){
-        const addStoryButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.addStoryButton));
-        await DriverFactory.myDriver.wait(until.elementIsVisible(addStoryButton), configuration.browser.timeout);
-        await addStoryButton.click();
-        const storyTitleTextField = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyTitleTextField));
-        const storyTypeDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyTypeDropdown));
-        this.firstStoryFeatureName = RandomValues.randomNumerics(6);       
-        await storyTitleTextField.sendKeys(this.firstStoryFeatureName);
-        await storyTypeDropdown.click();
-        const tags = scenario.pickle.tags; 
-        StoryPanel.locatorAux.value = StoryPanel.storyOptionInDropdown.value.replace("{0}", ((!!tags.find(tag => { return tag.name === '@createBugStory'; }) ? "bug":"feature")));
-        const optionSelectedInDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.locatorAux));
-        await optionSelectedInDropdown.click();
-        const saveButton = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.saveButton));
-        await saveButton.click();
-        await DriverFactory.myDriver.wait(until.elementIsVisible(addStoryButton), configuration.browser.timeout);
-        let storyItem = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.previewStoryItemRow));
-        storyItem = await DriverFactory.myDriver.wait(until.elementTextContains(storyItem, this.firstStoryFeatureName));
-        await storyItem.click();
-        console.log("Feature story created successfully in backlog with title:", this.firstStoryFeatureName);
+        this.createFeatureStoryHook = await CommonFlows.createStory(scenario);
     }
-    this.createFeatureStoryHook = true;
 });
 
 AfterAll({ tags: "@ui" },async function(){
+    if (!configuration.browser.parallel) await CommonFlows.deleteDefaultProject(defaultProjectId);
     await DriverFactory.closeDriver();
 });
