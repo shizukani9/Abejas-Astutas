@@ -2,13 +2,13 @@
     "prod":{
         "urlUI":"https://www.pivotaltracker.com/",
         "userAdmin":{
-            "username": "<email>",
-            "password": ""
+            "username": "group1.diplomado@gmail.com",
+            "password": "Libertad22"
         },
         "userMember01":{
-            "name": "<check name value in user profile>",
-            "username": "<email>",
-            "password": ""
+            "name": "Modulo6 Equipo AA",
+            "username": "equipoaamodulo6@gmail.com",
+            "password": "AbejasAstutas5"
         }
     }
 }
