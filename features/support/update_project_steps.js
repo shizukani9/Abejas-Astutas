@@ -43,3 +43,10 @@ Then('I should see the changes saved correctly', async function() {
     const projectName = await projectNameLabel.getText();
     expect(projectName).to.equal(this.newFirstProjectTitle);
 });
+
+Then('I should see the error message {string} for Project Title', async function(error) {
+    console.log('I should see the error message {string} for Project Title');
+    let errorTitleLabel = await DriverFactory.myDriver.findElement(ProjectSettingsPage.errorProjectTitleLabel);
+    storyItem = await DriverFactory.myDriver.wait(until.elementTextContains(errorTitleLabel, error));
+    expect(errorTitleLabel).to.not.equal(undefined);
+});
