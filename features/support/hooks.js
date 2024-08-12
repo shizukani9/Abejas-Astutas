@@ -55,7 +55,7 @@ Before( { tags: "@createFirstProject" }, async function(){
     console.log("Hook: Starting to create first project");
     const projectNameInput = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.nameFirstProjectInput));
     const createProjectButton = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.createProjectButton));
-    this.firstProjectName = RandomValues.alphanumeric(6);
+    this.firstProjectName = RandomValues.randomNumerics(6);
     await projectNameInput.sendKeys(this.firstProjectName);
     await createProjectButton.click();
     await DriverFactory.myDriver.wait(until.urlContains("projects"));
@@ -107,7 +107,7 @@ Before({ tags: "@createBugStory or @createFeatureStory" }, async function(scenar
         await addStoryButton.click();
         const storyTitleTextField = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyTitleTextField));
         const storyTypeDropdown = await DriverFactory.myDriver.wait(until.elementLocated(StoryPanel.storyTypeDropdown));
-        this.firstStoryFeatureName = RandomValues.alphanumeric(6);       
+        this.firstStoryFeatureName = RandomValues.randomNumerics(6);       
         await storyTitleTextField.sendKeys(this.firstStoryFeatureName);
         await storyTypeDropdown.click();
         const tags = scenario.pickle.tags; 

@@ -10,6 +10,7 @@ class StoriesTab{
     profileDropdownButton = By.css('button.zWDds__Button.TtSTu__Button--header.Dropdown__button[aria-label="Profile Dropdown"]');
     signOutButton = By.css('button.Dropdown__option.selected.Dropdown__option--button[data-aid="ProfileDropdown__signout"]');
     projectNameLabel = By.css('.raw_context_name');
+    titleAlertDialogLabel = By.css('div[data-aid="AlertDialog__title"]');
 }
 
 module.exports = new StoriesTab();

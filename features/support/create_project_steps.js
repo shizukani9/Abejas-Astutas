@@ -10,7 +10,8 @@ let expect = chai.expect;
 
 When('I create a new project with name: {string}', async function(projectName){
     console.log("Starting to create first project");
-        const projectNameInput = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.nameFirstProjectInput));
+    projectName = RandomValues.getRandomValues(projectName);
+    const projectNameInput = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.nameFirstProjectInput));
     const createProjectButton = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.createProjectButton));
     this.firstProjectName = projectName;
     await projectNameInput.sendKeys(projectName);

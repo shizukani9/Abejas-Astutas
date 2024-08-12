@@ -11,7 +11,7 @@ const StoriesTab = require("../../main/ui/stories_tab");
 When('I change the Project Title', async function() {
     console.log("I change the Project Title");
     const projectTitleInput = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.projectTitleInput));
-    this.newFirstProjectTitle = RandomValues.alphanumeric(6);
+    this.newFirstProjectTitle = RandomValues.randomNumerics(6);
     await projectTitleInput.clear();
     await projectTitleInput.sendKeys(this.newFirstProjectTitle);
 });
@@ -19,7 +19,7 @@ When('I change the Project Title', async function() {
 When('I change the Project Description', async function() {
     console.log("I change the Project Description");
     const projectDescriptionInput = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.projectDescriptionInput));
-    this.changeProjectDescription = RandomValues.alphanumeric(6);
+    this.changeProjectDescription = RandomValues.randomNumerics(6);
     await projectDescriptionInput.sendKeys(this.changeProjectDescription);
 });
 
