@@ -8,18 +8,18 @@ const configuration =require("../../configuration.json");
 const RandomValues = require("../../features/support/random_values");
 const StoriesTab = require("../../main/ui/stories_tab");
 
-When('I change the Project Title', async function() {
-    console.log("I change the Project Title");
+When('I change the Project Title to: {string}', async function(title) {
+    console.log("I change the Project Title to: {string}");
     const projectTitleInput = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.projectTitleInput));
-    this.newFirstProjectTitle = RandomValues.randomNumerics(6);
+    this.newFirstProjectTitle = RandomValues.getRandomValues(title);;
     await projectTitleInput.clear();
     await projectTitleInput.sendKeys(this.newFirstProjectTitle);
 });
 
-When('I change the Project Description', async function() {
+When('I change the Project Description to: {string}', async function(description) {
     console.log("I change the Project Description");
     const projectDescriptionInput = await DriverFactory.myDriver.wait(until.elementLocated(ProjectSettingsPage.projectDescriptionInput));
-    this.changeProjectDescription = RandomValues.randomNumerics(6);
+    this.changeProjectDescription = RandomValues.getRandomValues(description);
     await projectDescriptionInput.sendKeys(this.changeProjectDescription);
 });
 
