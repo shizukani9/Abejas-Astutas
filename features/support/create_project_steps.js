@@ -8,12 +8,12 @@ const configuration = require("../../configuration.json");
 let chai = require('chai');
 let expect = chai.expect;
 
-When('I create a new project', async function(){
+When('I create a new project with name: {string}', async function(projectName){
     console.log("Starting to create first project");
         const projectNameInput = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.nameFirstProjectInput));
     const createProjectButton = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.createProjectButton));
-    this.firstProjectName = RandomValues.alphanumeric(6);
-    await projectNameInput.sendKeys(this.firstProjectName);
+    this.firstProjectName = projectName;
+    await projectNameInput.sendKeys(projectName);
     await createProjectButton.click();
     await DriverFactory.myDriver.wait(until.urlContains("projects"));
     this.firstProjectId = (await DriverFactory.myDriver.getCurrentUrl()).split('/').pop();
