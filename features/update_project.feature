@@ -2,7 +2,7 @@
 Feature: Update Project Settings
 
 @US4-AC08_TC1 @login @createFirstProject @deleteFirstProject
-Scenario: Verify that you can update the general settings of a new project
+Scenario: Verify that updates for general settings are applied
     Given I navigate to the project settings page
     When I change the Project Title to: "<RandomValue,9>"
         And I change the Project Description to: "<RandomValue,9>"
@@ -11,7 +11,7 @@ Scenario: Verify that you can update the general settings of a new project
     Then I should see the changes saved correctly
 
 @login @createFirstProject @deleteFirstProject
-Scenario: Verify that you can update the general settings of a new project with a maximun size allowed
+Scenario: Verify that updates for general settings are applied with a maximun values allowed
     Given I navigate to the project settings page
     When I change the Project Title to: "<RandomValue,50>"
         And I change the Project Description to: "<RandomValue,140>"
@@ -20,7 +20,7 @@ Scenario: Verify that you can update the general settings of a new project with 
     Then I should see the changes saved correctly
 
 @login @createFirstProject @deleteFirstProject
-Scenario: Verify that you can update the general settings of a new project with a minimun size allowed
+Scenario: Verify that updates for general settings are applied with a minimun values allowed
     Given I navigate to the project settings page
     When I change the Project Title to: "<RandomValue,1>"
         And I change the Project Description to: "<RandomValue,0>"
@@ -29,7 +29,7 @@ Scenario: Verify that you can update the general settings of a new project with 
     Then I should see the changes saved correctly
 
 @login @createFirstProject @deleteFirstProject
-Scenario: Verify that you can update the general settings "Project Title" to empty of a new project
+Scenario: Verify that updates for general settings are not applied when "Project Title" is empty
     Given I navigate to the project settings page
     When I change the Project Title to: ""
         And I save the changes 
