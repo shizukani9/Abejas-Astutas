@@ -8,6 +8,6 @@
             "width": 1280,
             "heigth": 720
         },
-        "parallel": true
+        "parallel": false
     }
 }
