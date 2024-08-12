@@ -11,6 +11,7 @@ class ProjectSettingsPage{
     enableTasksCheckbox = By.css('input#project_enable_tasks');
     saveButton = By.css('input.save_bar__submit');
     projectNameLabel = By.css('button .tc_header_project_name');
+    errorProjectTitleLabel = By.css('.form_table .error_above_or_below');
 }
 
 module.exports = new ProjectSettingsPage();
