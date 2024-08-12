@@ -20,9 +20,9 @@ When('I delete a new project', async function(){
     await deleteButton.click();
 });
 
-Then('I should see the Introduction page empty', async function(){
-    console.log("Verifying the current page is the Introduction Page");
-    await DriverFactory.myDriver.wait(until.urlIs("https://www.pivotaltracker.com/introduction"), configuration.browser.timeout);
+Then('I should see the Dashboard page without new project', async function(){
+    console.log("I should see the Dashboard page without new project");
+    await DriverFactory.myDriver.wait(until.urlIs("https://www.pivotaltracker.com/dashboard"), configuration.browser.timeout);
     const currentUrl = await DriverFactory.myDriver.getCurrentUrl();
-    expect(currentUrl).to.equal("https://www.pivotaltracker.com/introduction");
+    expect(currentUrl).to.equal("https://www.pivotaltracker.com/dashboard");
 });

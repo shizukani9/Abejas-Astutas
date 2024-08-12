@@ -5,7 +5,7 @@ class ProjectSettingsPage{
     deleteButton = By.css('#confirm_delete');
     archiveLink = By.css('a#archive_link');
     confirmArchiveButton = By.css('input#confirm_archive');
-    archivedProjectsWarning = By.css('div.archived-projects-warning');
+    archivedProjectsWarning = By.css('#notice');
     projectTitleInput = By.css('input#project_name');
     projectDescriptionInput = By.css('input#project_description');
     enableTasksCheckbox = By.css('input#project_enable_tasks');
