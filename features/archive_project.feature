@@ -1,7 +1,7 @@
 @ui
 Feature: Archive a project
 
-@US5-AC10_TC1 @login @createFirstProject @deleteFirstProject @functional @regression
+@US5-AC10_TC1 @login @createFirstProject @deleteFirstProject @functional @regression @PS
 Scenario: Verify that a created project can be archived
     When I navigate to the project settings page
     Then I archive the project

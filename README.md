@@ -54,7 +54,7 @@ Este proyecto tiene como objetivo automatizar las pruebas de regresión para la 
 Para ejecutar las pruebas de automatización, utiliza el siguiente comando:
 
 ```bash
-npm run test
+npx cucumber-js --tags "@ui"
 ```
 
 Este comando ejecutará todos los escenarios definidos en los archivos `.feature` utilizando Cucumber.
