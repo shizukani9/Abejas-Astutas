@@ -6,6 +6,11 @@ class ProjectSettingsPage{
     archiveLink = By.css('a#archive_link');
     confirmArchiveButton = By.css('input#confirm_archive');
     archivedProjectsWarning = By.css('div.archived-projects-warning');
+    projectTitleInput = By.css('input#project_name');
+    projectDescriptionInput = By.css('input#project_description');
+    enableTasksCheckbox = By.css('input#project_enable_tasks');
+    saveButton = By.css('input.save_bar__submit');
+    projectNameLabel = By.css('button .tc_header_project_name');
 }
 
 module.exports = new ProjectSettingsPage();
