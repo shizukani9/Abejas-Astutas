@@ -1,7 +1,7 @@
 @ui
 Feature: Update Project Settings
 
-@US4-AC08_TC1 @login @createFirstProject @deleteFirstProject
+@US4-AC08_TC1 @login @createFirstProject @deleteFirstProject @functional @regression
 Scenario: Verify that updates for general settings are applied
     Given I navigate to the project settings page
     When I change the Project Title to: "<RandomValue,9>"
@@ -10,7 +10,7 @@ Scenario: Verify that updates for general settings are applied
         And I save the changes 
     Then I should see the changes saved correctly
 
-@login @createFirstProject @deleteFirstProject
+@login @createFirstProject @deleteFirstProject @regression
 Scenario: Verify that updates for general settings are applied with a maximun values allowed
     Given I navigate to the project settings page
     When I change the Project Title to: "<RandomValue,50>"
@@ -19,7 +19,7 @@ Scenario: Verify that updates for general settings are applied with a maximun va
         And I save the changes 
     Then I should see the changes saved correctly
 
-@login @createFirstProject @deleteFirstProject
+@login @createFirstProject @deleteFirstProject @regression
 Scenario: Verify that updates for general settings are applied with a minimun values allowed
     Given I navigate to the project settings page
     When I change the Project Title to: "<RandomValue,1>"
@@ -28,7 +28,7 @@ Scenario: Verify that updates for general settings are applied with a minimun va
         And I save the changes 
     Then I should see the changes saved correctly
 
-@login @createFirstProject @deleteFirstProject
+@login @createFirstProject @deleteFirstProject @regression
 Scenario: Verify that updates for general settings are not applied when "Project Title" is empty
     Given I navigate to the project settings page
     When I change the Project Title to: ""
