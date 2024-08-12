@@ -1,8 +1,8 @@
 @ui
 Feature: Management of Story Type - Bug
 
-@createBugStory @login @createFirstProject @deleteFirstProject
-Scenario: A user can create a bug with the minimum requirements.
+@US3-AC05_TC1 @login @createFirstProject @deleteFirstProject
+Scenario: Verify that a new "Bug" type story is created with the minimum requirements
     When I create a new story in backlog panel with following information:
         | Title     | Test01  |
         | StoryType | Bug     |
@@ -11,8 +11,8 @@ Scenario: A user can create a bug with the minimum requirements.
             | Title     | Test01  |
             | StoryType | Bug     |
 
-@assignBugStory @login @createFirstProject @addAMemberToProject @deleteFirstProject
-Scenario: A user can create a bug with the minimum requirements.
+@US3-AC06_TC1 @login @createFirstProject @addAMemberToProject @deleteFirstProject
+Scenario: Verify that a new "Bug" type story is created with an "Owner"
     When I create a new story in backlog panel with following information:
         | Title     | Test01        |
         | StoryType | Bug           |
@@ -23,4 +23,7 @@ Scenario: A user can create a bug with the minimum requirements.
             | StoryType | Bug           |
             | Owners    | userMember01  |
 
-     
+@US3-AC07_TC1 @login @createFirstProject @createBugStory @deleteFirstProject
+Scenario: Verify that a "Bug" type story can be deleted
+    When I delete the bug type story from the backlog
+    Then I should see the backlog empty     

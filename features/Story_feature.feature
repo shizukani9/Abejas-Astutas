@@ -1,8 +1,8 @@
 @ui
 Feature: Management of Story Type - Feature
 
-@createFeatureStory @login @createFirstProject @deleteFirstProject
-Scenario: A user can create a bug with the minimum requirements.
+@US2-AC02_TC1 @login @createFirstProject @deleteFirstProject
+Scenario: Verify that a “Feature” type story can be created with the minimum requirements
     When I create a new story in backlog panel with following information:
         | Title     | Test01  |
         | StoryType | Feature |
@@ -11,8 +11,8 @@ Scenario: A user can create a bug with the minimum requirements.
             | Title     | Test01  |
             | StoryType | Feature |
      
-@assignFeatureStory @login @createFirstProject @addAMemberToProject @deleteFirstProject
-Scenario: A user can create a bug with the minimum requirements.
+@US2_AC03_TC1 @login @createFirstProject @addAMemberToProject @deleteFirstProject
+Scenario: Verify that a new story of type "Feature" is created with an "Owner"
     When I create a new story in backlog panel with following information:
         | Title     | Test01        |
         | StoryType | Feature       |

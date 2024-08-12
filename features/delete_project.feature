@@ -1,8 +1,7 @@
 @ui
 Feature: Create a new project in Pivotal Tracker
-    Scenarios related to delete project
 
-@deleteNewFirstProject @login @createFirstProject
-Scenario: A user delete a new first project successfully 
+@US5_AC09_TC1 @login @createFirstProject
+Scenario: Verify that a new project can be deleted
     When I delete a new project
     Then I should see the Introduction page empty

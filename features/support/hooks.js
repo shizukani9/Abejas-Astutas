@@ -27,7 +27,7 @@ BeforeAll( { tags: "@ui" }, async function(){
 Before( { tags: "@login" }, async function(scenario){
     console.log("Test scenario: " + scenario.pickle.name);
     if ((loginHook === undefined) || (loginHook === false)){
-        console.log("Starting Login");
+        console.log("Hook: Starting Login");
         const usernameInput = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.usernameInput));
         const nextButton = await DriverFactory.myDriver.wait(until.elementLocated(LoginPage.nextButton));
         await usernameInput.sendKeys(environment.prod.userAdmin.username);
@@ -52,7 +52,7 @@ Before( { tags: "@login" }, async function(scenario){
 });
 
 Before( { tags: "@createFirstProject" }, async function(){
-    console.log("Starting to create first project");
+    console.log("Hook: Starting to create first project");
     const projectNameInput = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.nameFirstProjectInput));
     const createProjectButton = await DriverFactory.myDriver.wait(until.elementLocated(IntroductionPage.createProjectButton));
     this.firstProjectName = RandomValues.alphanumeric(6);
@@ -64,7 +64,7 @@ Before( { tags: "@createFirstProject" }, async function(){
 });
 
 Before( { tags: "@addAMemberToProject" }, async function(){
-    console.log("Starting to add a member to project");
+    console.log("Hook: Starting to add a member to project");
     if ((this.addAMemberToProjectHook === undefined) || (this.addAMemberToProjectHook === false)){
         await DriverFactory.myDriver.get("https://www.pivotaltracker.com/projects/"+this.firstProjectId+"/memberships");
         const invitePeopleButton = await DriverFactory.myDriver.wait(until.elementLocated(MembersTab.invitePeopleButton));
@@ -82,7 +82,7 @@ Before( { tags: "@addAMemberToProject" }, async function(){
 });
 
 After({ tags: "@deleteFirstProject" }, async function(scenario){
-    console.log("Starting to delete the first project");
+    console.log("Hook: Starting to delete the first project");
     const tags = scenario.pickle.tags;
     
     if (!!tags.find(tag => { return tag.name === '@createFirstProject'; }) || this.firstProjectId !== undefined) {
@@ -100,7 +100,7 @@ After({ tags: "@deleteFirstProject" }, async function(scenario){
 });
 
 Before({ tags: "@createBugStory or @createFeatureStory" }, async function(scenario){
-    console.log("Starting to create a feature story");
+    console.log("Hook: Starting to create a feature story");
     if (!this.createFeatureStoryHook){
         const addStoryButton = await DriverFactory.myDriver.wait(until.elementLocated(StoriesTab.addStoryButton));
         await DriverFactory.myDriver.wait(until.elementIsVisible(addStoryButton), configuration.browser.timeout);

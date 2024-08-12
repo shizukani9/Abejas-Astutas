@@ -1,8 +1,8 @@
 @ui
 Feature: Update Project Settings
 
-@AC08 @login @createFirstProject @deleteFirstProject
-Scenario: Change my project's general settings
+@US4-AC08_TC1 @login @createFirstProject @deleteFirstProject
+Scenario: Verify that you can update the general settings of a new project
     Given I navigate to the project settings page
     When I change the Project Title
         And I change the Project Description
