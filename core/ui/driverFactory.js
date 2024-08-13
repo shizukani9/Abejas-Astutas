@@ -1,9 +1,11 @@
 const { Builder, Browser, WebDriver } = require("selenium-webdriver");
 const configuration = require("../../configuration.json");
 const ChromeDriver = require("./chromedriver");
+const RemoteDriver = require("./remoteChrome");
 
 const browserStrategy ={
-    chrome: ChromeDriver
+    chrome: ChromeDriver,
+    remote: RemoteDriver
 }
 
 module.exports = class DriverFactory{
