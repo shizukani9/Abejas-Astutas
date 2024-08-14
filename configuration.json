@@ -1,0 +1,23 @@
+{
+    "browser":{
+        "name": "chrome",
+        "headless": false,
+        "timeout": 30000,
+        "maxWindows": false,
+        "resolution": {
+            "width": 1280,
+            "heigth": 720
+        },
+        "parallel": false
+    },
+    "remoteBrowser":{
+        "userKey":"<enter valid value>",
+        "passwordKey": "<enter valid value>",
+        "os": "Windows",
+        "osVersion": "10",
+        "browserName": "chrome",
+        "browserVersion": "latest",
+        "local": "false",
+        "seleniumVersion": "4.0.0"
+    }
+}
